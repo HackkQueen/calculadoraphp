@@ -1,54 +1,58 @@
 <?php
-$texto = "";
-session_start();
+$texto = ""; // Variable para almacenar el texto a mostrar en el campo de resultado
+session_start(); // Iniciar la sesión para almacenar variables de sesión
 
+// Verificar si se ha presionado un botón numérico
 if (isset($_POST["botones"])) {
-    $texto = $_POST["resultado"] . $_POST["botones"];
+    $texto = $_POST["resultado"] . $_POST["botones"]; // Concatenar el valor del botón presionado al resultado actual
 }
 
+// Verificar si se ha seleccionado una operación
 if (isset($_POST["operacion"])) {
-    $num1 = floatval($_POST["resultado"]);
-    $_SESSION["num1"] = $num1;
-    $_SESSION["signo"] = $_POST["operacion"];
-    $texto = "";
+    $num1 = floatval($_POST["resultado"]); // Convertir el resultado actual en un número flotante
+    $_SESSION["num1"] = $num1; // Almacenar el número en una variable de sesión llamada "num1"
+    $_SESSION["signo"] = $_POST["operacion"]; // Almacenar la operación seleccionada en una variable de sesión llamada "signo"
+    $texto = ""; // Reiniciar el texto a mostrar en el campo de resultado
 }
 
+// Verificar si se ha presionado el botón "-" cuando el resultado está vacío
 if (isset($_POST["resultado"]) && $_POST["resultado"] == "" && isset($_POST["operacion"]) && $_POST["operacion"] == "-") {
-    $texto = $_POST["operacion"];
+    $texto = $_POST["operacion"]; // Mostrar el símbolo "-" en el campo de resultado
 }
 
+// Verificar si se ha presionado el botón "=" para realizar el cálculo
 if (isset($_POST["igual"])) {
-    $num2 = floatval($_POST["resultado"]);
+    $num2 = floatval($_POST["resultado"]); // Convertir el resultado actual en un número flotante
 
     try {
         if ($_SESSION["signo"] === "*") {
-            $texto = $_SESSION["num1"] * $num2;
+            $texto = $_SESSION["num1"] * $num2; // Realizar la multiplicación con el número almacenado en "num1"
         } else if ($_SESSION["signo"] === "-") {
-            $texto = $_SESSION["num1"] - $num2;
+            $texto = $_SESSION["num1"] - $num2; // Realizar la resta con el número almacenado en "num1"
         } else if ($_SESSION["signo"] === "+") {
-            $texto = $_SESSION["num1"] + $num2;
+            $texto = $_SESSION["num1"] + $num2; // Realizar la suma con el número almacenado en "num1"
         } else if ($_SESSION["signo"] === "/") {
-            ($num2 != 0) ? $texto = $_SESSION["num1"] / $num2 : throw new Exception("Sintax error: no es posible dividir entre 0");
+            ($num2 != 0) ? $texto = $_SESSION["num1"] / $num2 : throw new Exception("Sintax error: no es posible dividir entre 0"); // Realizar la división con el número almacenado en "num1", excepto si el divisor es cero
         }
     } catch (Exception $e) {
-        $texto = $e->getMessage();
+        $texto = $e->getMessage(); // Capturar cualquier excepción que ocurra durante el cálculo
     }
 }
 
+// Verificar si se ha presionado un botón de función especial
 if (isset($_POST["funciones"])) {
     if ($_POST["funciones"] === "←") {
-        $numeros = $_POST["resultado"];
-        $texto = substr($numeros, 0, -1);
+        $numeros = $_POST["resultado"]; // Obtener el resultado actual
+        $texto = substr($numeros, 0, -1); // Eliminar el último dígito del resultado
     } else if ($_POST["funciones"] === "ce") {
-        $texto = "";
+        $texto = ""; // Borrar el contenido del resultado
     } else if ($_POST["funciones"] === "π") {
-        $texto = M_PI;
+        $texto = M_PI; // Mostrar el valor de PI en el campo de resultado
     } else if ($_POST["funciones"] === "x²") {
-        $numElevado = floatval($_POST["resultado"]);
-        $texto = $numElevado ** 2;
+        $numElevado = floatval($_POST["resultado"]); // Convertir el resultado actual en un número flotante
+        $texto = $numElevado ** 2; // Elevar al cuadrado el número y mostrarlo en el campo de resultado
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
