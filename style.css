@@ -1,0 +1,47 @@
+body{
+    background-image: url(https://images.unsplash.com/photo-1431440869543-efaf3388c585?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.calculadora{
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+h1{
+    color: white;
+    font-family: 'Cherry Bomb One', sans-serif;
+}
+.resultado{
+    height: 4rem;
+    width: 20rem;
+    margin-bottom:1rem;
+    margin-top: 1rem;
+}
+.botones{
+    width: 4.7rem;
+    height: 4.7rem;
+    font-size: x-large;
+    margin: 2px;
+    border-radius: 10px;
+    border: none;
+}
+#igual{
+    width: 4.7rem;
+    height: 4.7rem;
+    font-size: x-large;
+    margin: 2px;
+    border-radius: 10px;
+}
+.borrador{
+    width: 4.7rem;
+    height: 4.7rem;
+    font-size: x-large;
+    margin: 2px;
+    background-color: rgb(165, 42, 140);
+    border-radius: 10px;
+}
